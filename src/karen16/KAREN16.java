@@ -6,7 +6,7 @@
 package karen16;
 
 import java.io.File;
-import java.io.RandomAccessFile;
+import java.io.*;
 
 /**
  *
@@ -46,6 +46,72 @@ public class KAREN16 {
                 raf.close();
             }
             
+            
+            InputStreamReader inReader = new InputStreamReader(System.in);
+            BufferedReader bReader = new BufferedReader(inReader);
+
+            System.out.print("ohsi!> ");
+            String cmd = bReader.readLine();       // Read from standard input
+            String[] arg = cmd.split(" ");
+                
+            while (!arg[0].equals("exit"))
+            {
+                //validando que no sea un solo comando
+                if (arg.length < 2) {
+                    System.err.println("Muy pocos argumentos, intente de nuevo");
+                    System.out.print("ohsi!> ");
+                    cmd = bReader.readLine(); 
+                    arg = cmd.split(" ");
+                }else{
+                    switch (arg[0])
+                    {
+                        case "cat":
+                        {
+                            if (arg[1].equals(">")) {
+                                //redirect to file or something like that
+                            }else{
+                                System.out.println("cat normal");
+                            }
+                        }break;
+                        case "ls":
+                        {
+                            if (arg[1].equals("-l")) {
+                                //listar todo
+                            }else{
+                                //listar solo directorio actual
+                            }
+                        }break;
+                        case "mkdir":
+                        {
+                            System.out.println("Crear directorio");
+                        }break;
+                        case "rmdir":
+                        {
+                            System.out.println("Eliminar directorio");
+                            
+                        }break;
+                        case "rm":
+                        {
+                            System.out.println("Eliminar archivo");
+                        }break;
+                        case "cd":
+                        {
+                            System.out.println("Cambiar directorio");
+                        }break;
+                        default:
+                        {
+                            System.out.println("Kezezo?");
+                        } break;
+                        
+                    }
+                    System.out.print("ohsi!> ");
+                    cmd = bReader.readLine(); 
+                    arg = cmd.split(" ");
+                }
+            }
+            
+            inReader.close();
+            bReader.close();
             
         }catch(Exception e){
         

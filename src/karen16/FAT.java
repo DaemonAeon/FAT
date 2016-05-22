@@ -166,7 +166,7 @@ public class FAT {
         byte b[] = new byte[4096 - 32];
         dm.readFromDisk(188416 + 32, 4096 - 32, b);
         for (int i = 0; i < b.length; i++) {
-            System.out.println("Napoleon " + b[i]);
+            //System.out.println("Napoleon " + b[i]);
         }
 
     }
