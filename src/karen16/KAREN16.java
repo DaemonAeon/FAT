@@ -69,6 +69,7 @@ public class KAREN16 {
                         {
                             if (arg[1].equals(">")) {
                                 //redirect to file or something like that
+                                System.out.println("cat raro con > ");
                             }else{
                                 System.out.println("cat normal");
                             }
@@ -77,8 +78,10 @@ public class KAREN16 {
                         {
                             if (arg[1].equals("-l")) {
                                 //listar todo
+                                System.out.println("Lista too' con too' y la fecha, tipo, tamaño");
                             }else{
                                 //listar solo directorio actual
+                                System.out.println("Señar directorio actual");
                             }
                         }break;
                         case "mkdir":
