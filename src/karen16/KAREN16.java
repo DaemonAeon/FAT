@@ -99,9 +99,9 @@ public class KAREN16 {
                             }else{
                                 //listar solo directorio actual
                                 System.out.println("Señar directorio actual");
-                                byte[] file_bytes = disk_manager.readFromDisk(0, 10, contents);
+                                byte[] file_bytes = disk_manager.readFromDisk(0, 32, contents);
                                 for (int i = 0; i < file_bytes.length; i++) {
-                                    System.out.println((char)file_bytes[i]);
+                                    System.out.println(file_bytes[i]);
                                 }
                                 
                             }
