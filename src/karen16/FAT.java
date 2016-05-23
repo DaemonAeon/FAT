@@ -5,8 +5,13 @@
  */
 package karen16;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,7 +20,6 @@ import java.nio.ByteBuffer;
 public class FAT {
 
     public FAT() {
-
     }
 
     public void createFile(String name, String date, byte contents[], int dir) {
@@ -142,12 +146,38 @@ public class FAT {
 
     }
 
-    private void deleteFileSingleBlock(String name) {
+    private void deleteFileSingleBlock(String name, int dir) {
+
+        byte[] nameBytes = name.getBytes();
+        int DirEntrySize = 32;
+        
+        RandomAccessFile raf;
+        try {
+            raf = new RandomAccessFile("disk.bin", "rws");
+            raf.seek(dir+DirEntrySize);//Directorio donde se encuentra el directorio
+            //moverse al seek del archivo
+            raf.write(0);                
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FAT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(FAT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+
+
+
+
+
+    }
+
+    private void deleteFileMultiBlock(String name, int dir) {
+
+        byte[] nameBytes = name.getBytes();
 
     }
 
     private void createFileMultiBlock(String name, String date, byte contents[], int dir) {
-
     }
 
     private int fileExists() {
@@ -170,5 +200,4 @@ public class FAT {
         }
 
     }
-
 }
