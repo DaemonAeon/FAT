@@ -88,17 +88,16 @@ public class ShellTest {
                             // fat.createFile(file_name, creation_date, cont, disk_manager.getNextFATentry(true));
 
                         } else {
-                            
+
                             //leer y mostrar el archivo que se manda de parametro        
-                            String Argumento = new String(arg[1]);
-                            System.out.println(Argumento);
+                            String Argumento = new String(arg[1]);                            
                             catNormalTester(Argumento);
 
                         }
                     } else if (arg[0].equalsIgnoreCase("ls")) {
                         if (arg[1].equals("-l")) {
                             //listar todo
-                            System.out.println("Lista too' con too' y la fecha, tipo, tamaño");
+                            
                             lsTester(dirActual, 1);
                         } else {
                             //listar solo directorio actual                               
@@ -109,20 +108,21 @@ public class ShellTest {
                             lsTester(dirActual, 0);
                         }
                     } else if (arg[0].equalsIgnoreCase("mkdir")) {
-                                               
-                            System.out.println("Crear directorio");
-                            Date date = new Date();
-                            String creation_date = date.toString();
-                            String file_name = arg[1];
-                            Filetest F = new Filetest(file_name, "1", creation_date, dirActual, "Directorio", arg[1]);
-                            Tester.add(F);
-                        
+
+                        System.out.println("Crear directorio");
+                        Date date = new Date();
+                        String creation_date = date.toString();
+                        String file_name = arg[1];
+                        Filetest F = new Filetest(file_name, "1", creation_date, dirActual, "Directorio", arg[1]);
+                        Tester.add(F);
+
                     } else if (arg[0].equalsIgnoreCase("rmdir")) {
                         System.out.println("Eliminar directorio");
                         rmdirTester(dirActual, arg[1]);
 
                     } else if (arg[0].equalsIgnoreCase("rm")) {
                         System.out.println("Eliminar archivo");
+                        rmTester(dirActual, arg[1]);
                     } else if (arg[0].equalsIgnoreCase("cd")) {
                         if (arg[1].equalsIgnoreCase("..")) {
                             cdBack();
@@ -153,17 +153,25 @@ public class ShellTest {
 
     private static void catNormalTester(String Nombre) {
 
+
         for (int i = 0; i < Tester.size(); i++) {
 
             if (Tester.get(i).getNombre().equals(Nombre)) {
-                System.out.println(Tester.get(i).Content);
-                break;
+                if (Tester.get(i).getTipo().equalsIgnoreCase("Directorio")) {
+                    System.out.println(Nombre + "No es un archivo");
+                    break;
+                } else {
+                    System.out.println(Tester.get(i).Content);
+                    break;
+                }
             }
         }
 
     }
 
     private static void mkdirTester() {
+        
+
     }
 
     private static void rmdirTester(String dir, String nombre) {
@@ -198,7 +206,22 @@ public class ShellTest {
         }
     }
 
-    private static void rmTester() {
+    private static void rmTester(String dir,String nombre) {
+        
+        boolean veredicto =true;
+        for (int i = 0; i <Tester.size(); i++) {
+                       
+          
+            if(Tester.get(i).getNombre().equalsIgnoreCase(nombre) && Tester.get(i).getPadre().equalsIgnoreCase(dir)){
+                 veredicto = false;
+                 Tester.remove(i);
+            }
+            
+        }
+        
+        if(veredicto){
+            System.out.println("No se encontró el archivo");
+        }
     }
 
     private static void cdTester(String actual, String nombre) {
@@ -214,7 +237,7 @@ public class ShellTest {
                     veredicto = true;
 
                     if (Tester.get(i).getTipo().equalsIgnoreCase("Archivo")) {
-                        System.out.println(nombre + "no es un directorio");
+                        System.out.println(nombre + " no es un directorio");
                     } else {
                         dirActual = nombre;
                     }
@@ -267,7 +290,13 @@ public class ShellTest {
                 }
 
                 if (Tester.get(i).getPadre().equals(dir)) {
-                    System.out.println(System.out.printf("%-30.30s %-30.30s %-30.30s %-30.30s%n", Tester.get(i).getNombre(), Tester.get(i).getTipo(), Tester.get(i).getFecha(), Tester.get(i).Content.length()));
+                    int Tamaño = 0;
+                    
+                    for (int j = 0; j < Tester.get(i).Content.getBytes().length; j++) {
+                        Tamaño++;
+                    }
+                    
+                    System.out.println(System.out.printf("%-30.30s %-30.30s %-30.30s %-30.30s%n", Tester.get(i).getNombre(), Tester.get(i).getTipo(),Tester.get(i).getFecha(),Integer.toString(Tamaño)));
 
                 }
 
