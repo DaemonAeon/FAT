@@ -22,17 +22,12 @@ public class KAREN16 {
         FAT fat = new FAT();
         byte[] contents = {0x20, 0x13, 0x49};
         //fat.createFile("abcdefg.exe", "25051995", contents);
-<<<<<<< HEAD
-        //fat.ready();
 
-        try {
-
-=======
+     
         fat.ready();
         DiskManager disk_manager = new DiskManager();
         try{
             
->>>>>>> d3a57e90febd809ccb217232919e5c9f6edf93d6
             File f = new File("disk.bin");
 
             if (!(f.exists() && !f.isDirectory())) {
@@ -71,29 +66,25 @@ public class KAREN16 {
                 } else {
                     switch (arg[0]) {
                         case "cat": {
+                            
                             if (arg[1].equals(">")) {
                                 //redirect to file or something like that
-<<<<<<< HEAD
-                                System.out.println("cat raro con > ");
-                            } else {
-=======
                                 //escribir a archivo
                                 String file_name = arg[2];
-                                System.out.println("File name: "+ file_name);
+                                //System.out.println("File name: "+ file_name);
                                 Date date = new Date();
                                 String creation_date = date.toString();
-                                System.out.println("Fecha de creacion: " + creation_date);
+                                //System.out.println("Fecha de creacion: " + creation_date);
                                 System.out.println("Escriba el contenido del archivo");
                                 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                                 String content = br.readLine();
                                 byte[] cont = content.getBytes();
-                                System.out.println("bytes:\n"+ cont.toString());
+                                //System.out.println("bytes:\n"+ cont.toString());
                                 
                                 fat.createFile(file_name,creation_date, cont, disk_manager.getNextFATentry(true));
                                 
-                                
                             }else{
->>>>>>> d3a57e90febd809ccb217232919e5c9f6edf93d6
+
                                 System.out.println("cat normal");
                                 //leer y mostrar el archivo que se manda de parametro 
                                 

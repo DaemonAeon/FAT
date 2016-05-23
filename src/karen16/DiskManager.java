@@ -119,7 +119,7 @@ public class DiskManager {
             }
 
             RandomAccessFile raf = new RandomAccessFile("disk.bin", "rws");
-            raf.seek(DirEntryInit);
+            //raf.seek(DirEntryInit);
             for (int i = 0; i < DirMaxEntry; i++) {
 
                 raf.seek(i * DirEntrySize);

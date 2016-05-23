@@ -152,7 +152,9 @@ public class FAT {
 
         byte[] nameBytes = name.getBytes();
         int DirEntrySize = 32;
-
+        int DirMaxEntry = 128;
+        int FirstByte = 1;
+        int NameSize = 10;
         RandomAccessFile raf;
         try {
             raf = new RandomAccessFile("disk.bin", "rws");
@@ -171,6 +173,7 @@ public class FAT {
     private void deleteFileMultiBlock(String name, int dir) {
 
         byte[] nameBytes = name.getBytes();
+        int DirEntrySize = 32;
 
     }
 
@@ -181,7 +184,7 @@ public class FAT {
         int BlocksNumber = (int) Math.ceil(contents.length / 4096);
         byte[][] BytesInBlocks = SplitInBlocks(contents, 4096);
         for (int k = 0; k < BlocksNumber; k++) {
-            
+
             byte[] nameBytes = name.getBytes(), dateBytes = date.getBytes();
             byte[] FATData = new byte[32];
 
@@ -218,7 +221,7 @@ public class FAT {
                 }
 
                 //size...
-                
+
                 final BigInteger bi2 = BigInteger.valueOf(BytesInBlocks[k].length);
                 final byte[] bytes2 = bi2.toByteArray();
                 mytemp = 25;
@@ -232,9 +235,18 @@ public class FAT {
                 final BigInteger bi3 = BigInteger.valueOf(65535);
                 final byte[] bytes3 = bi3.toByteArray();
 
+
+                if ((k + 1) == BlocksNumber) {
+                    String temp ;
+                                
+                }
+                byte BytesToWrite[];
+                BytesToWrite = BytesInBlocks[k];
                 new DiskManager().writeToDisk(nextAvalFAT, 2, bytes3);
                 new DiskManager().writeToDisk(diskpos, 32, FATData);
-                new DiskManager().writeToDisk(diskpos + 32,BytesInBlocks[k].length,BytesInBlocks[k]);
+                new DiskManager().writeToDisk(diskpos + 32, BytesInBlocks[k].length, BytesInBlocks[k]);
+
+
             }
 
         }
