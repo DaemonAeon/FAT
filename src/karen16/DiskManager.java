@@ -15,7 +15,6 @@ import java.io.RandomAccessFile;
 public class DiskManager {
 
     public DiskManager() {
-
     }
 
     public int getNextFATentry(boolean root) {
@@ -43,7 +42,7 @@ public class DiskManager {
                 } else {
                     i++;
                     if (root) {
-                         if (i * 2 >= 1024) {
+                        if (i * 2 >= 1024) {
                             retVal = -1;
                             raf.close();
                             break;
@@ -59,7 +58,6 @@ public class DiskManager {
             }
 
         } catch (Exception e) {
-
         }
 
         return retVal;
@@ -105,9 +103,41 @@ public class DiskManager {
 
         return retVal;
     }
-    
-    public int getNextDirEntry(int dir){
-        return 0;
+
+    public int getNextDirEntry(int dir) {
+
+        int retVal =  retVal = -1;//no hay mas entraadas
+        int FATEntrySize = 2;
+        int DirEntrySize = 32;
+        int DirMaxEntry = 128;
+        int DirEntryInit = dir * DirEntrySize;
+        try {
+            byte b[] = new byte[DirEntrySize];
+
+            for (int h = 0; h < DirEntrySize; h++) {
+                b[0] = 0;
+            }
+
+            RandomAccessFile raf = new RandomAccessFile("disk.bin", "rws");
+            raf.seek(DirEntryInit);
+            for (int i = 0; i < DirMaxEntry; i++) {
+
+                raf.seek(i * DirEntrySize);
+                raf.readFully(b, 0, DirEntrySize);
+
+                if (b[0] == 0) {
+                    retVal = i * DirEntrySize;
+                    raf.close();
+                    return retVal;
+                }
+
+            }
+
+        } catch (Exception e) {
+        }
+       
+
+        return retVal;
     }
 
     public void writeToDisk(int pos, int len, byte[] contents) {
@@ -119,7 +149,6 @@ public class DiskManager {
 
             raf.close();
         } catch (Exception e) {
-
         }
     }
 
@@ -132,10 +161,8 @@ public class DiskManager {
             raf.close();
 
         } catch (Exception e) {
-
         }
 
         return contents;
     }
-
 }
