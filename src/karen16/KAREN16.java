@@ -21,105 +21,102 @@ public class KAREN16 {
         FAT fat = new FAT();
         byte[] contents = {0x20, 0x13, 0x49};
         //fat.createFile("abcdefg.exe", "25051995", contents);
-        fat.ready();
-        
-        try{
-            
+        //fat.ready();
+
+        try {
+
             File f = new File("disk.bin");
-            if(f.exists() && !f.isDirectory()) {
-                
-            }else{
-                RandomAccessFile raf = new RandomAccessFile("disk.bin", "rws");
-            
+
+            if (!(f.exists() && !f.isDirectory())) {
+
+                RandomAccessFile raf = new RandomAccessFile(f, "rws");
+
                 raf.setLength(262144000);
-                
+
                 byte b[] = new byte[8192000];
-                
-                for(int i = 0; i < 8192000; i++){
+
+                for (int i = 0; i < 8192000; i++) {
                     b[i] = 0;
                 }
-                
-                for(int i = 0; i < 32; i++){
+
+                for (int i = 0; i < 32; i++) {
                     raf.write(b);
                 }
-                
+
                 raf.close();
             }
-            
-            
+
             InputStreamReader inReader = new InputStreamReader(System.in);
             BufferedReader bReader = new BufferedReader(inReader);
 
             System.out.print("ohsi!> ");
             String cmd = bReader.readLine();       // Read from standard input
             String[] arg = cmd.split(" ");
-                
-            while (!arg[0].equals("exit"))
-            {
+
+            while (!arg[0].equals("exit")) {
                 //validando que no sea un solo comando
                 if (arg.length < 2) {
                     System.err.println("Muy pocos argumentos, intente de nuevo");
                     System.out.print("ohsi!> ");
-                    cmd = bReader.readLine(); 
+                    cmd = bReader.readLine();
                     arg = cmd.split(" ");
-                }else{
-                    switch (arg[0])
-                    {
-                        case "cat":
-                        {
+                } else {
+                    switch (arg[0]) {
+                        case "cat": {
                             if (arg[1].equals(">")) {
                                 //redirect to file or something like that
                                 System.out.println("cat raro con > ");
-                            }else{
+                            } else {
                                 System.out.println("cat normal");
                             }
-                        }break;
-                        case "ls":
-                        {
+                        }
+                        break;
+                        case "ls": {
                             if (arg[1].equals("-l")) {
                                 //listar todo
                                 System.out.println("Lista too' con too' y la fecha, tipo, tamaño");
-                            }else{
+                            } else {
                                 //listar solo directorio actual
                                 System.out.println("Señar directorio actual");
                             }
-                        }break;
-                        case "mkdir":
-                        {
+                        }
+                        break;
+                        case "mkdir": {
                             System.out.println("Crear directorio");
-                        }break;
-                        case "rmdir":
-                        {
+                        }
+                        break;
+                        case "rmdir": {
                             System.out.println("Eliminar directorio");
-                            
-                        }break;
-                        case "rm":
-                        {
+
+                        }
+                        break;
+                        case "rm": {
                             System.out.println("Eliminar archivo");
-                        }break;
-                        case "cd":
-                        {
+                        }
+                        break;
+                        case "cd": {
                             System.out.println("Cambiar directorio");
-                        }break;
-                        default:
-                        {
+                        }
+                        break;
+                        default: {
                             System.out.println("Kezezo?");
-                        } break;
-                        
+                        }
+                        break;
+
                     }
                     System.out.print("ohsi!> ");
-                    cmd = bReader.readLine(); 
+                    cmd = bReader.readLine();
                     arg = cmd.split(" ");
                 }
             }
-            
+
             inReader.close();
             bReader.close();
-            
-        }catch(Exception e){
-        
+
+        } catch (Exception e) {
+
         }
-        
+
     }
-    
+
 }
